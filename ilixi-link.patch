@@ -1,0 +1,11 @@
+--- ilixi-1.0.0/ilixi/Makefile.am.orig	2013-01-22 12:55:10.000000000 +0100
++++ ilixi-1.0.0/ilixi/Makefile.am	2013-10-16 19:45:31.717265764 +0200
+@@ -9,7 +9,7 @@
+                        							graphics/libilixi_graphics.la \
+                        							lib/libilixi_lib.la \
+                        							types/libilixi_types.la \
+-                       							ui/libilixi_ui.la
++                       							ui/libilixi_ui.la -lm
+                        							
+ if WITH_FUSIONDALE
+ if WITH_SAWMAN
