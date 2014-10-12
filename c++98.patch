@@ -120,3 +120,18 @@ index 9127690..90b8d46 100644
              if (surface()->flags() & Surface::SharedSurface)
              {
                  rect.x += absX();
+--- ilixi-1.0.0/ilixi/compositor/Compositor.cpp~	2013-08-29 14:45:55.000000000 +0200
++++ ilixi-1.0.0/ilixi/compositor/Compositor.cpp	2014-10-12 13:20:09.899977707 +0200
+@@ -709,7 +709,11 @@
+             {
+                 if (1 || !_osk)
+                 {
+-                    DFBRectangle rect = { 0, 0, 800, 30 };
++                    DFBRectangle rect;
++                    rect.x = 0;
++                    rect.y = 0;
++                    rect.w = 800;
++                    rect.h = 30;
+                     showOSK(rect, _currentApp->pid());
+                 } else
+                     toggleOSK(true); // show osk
