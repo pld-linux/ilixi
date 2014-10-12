@@ -20,6 +20,7 @@ Group:		Libraries
 Source0:	http://www.directfb.org/downloads/Libs/%{name}-%{version}.tar.gz
 # Source0-md5:	c1cf8c2b0e31870df2970ff2f4a42de2
 Patch0:		%{name}-link.patch
+Patch1:		c++98.patch
 URL:		http://www.ilixi.org/
 BuildRequires:	DirectFB-devel >= 1:1.6.3
 %{?with_wnn:BuildRequires:	FreeWnn-devel}
@@ -90,6 +91,7 @@ Statyczna biblioteka ilixi.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}

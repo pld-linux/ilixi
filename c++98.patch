@@ -1,0 +1,82 @@
+commit 5a5791ca4ab0237f81fd2c180471bc20cf109c2a
+Author: Tarik Sekmen <tarik@directfb.org>
+Date:   Tue Apr 15 13:40:07 2014 +0300
+
+    Surface: Minor fix for C++98 compiler error.
+
+diff --git a/ilixi/graphics/Surface.cpp b/ilixi/graphics/Surface.cpp
+index 7489725..84b789f 100644
+--- a/ilixi/graphics/Surface.cpp
++++ b/ilixi/graphics/Surface.cpp
+@@ -175,7 +175,11 @@ void
+ Surface::setGeometry(int x, int y, int width, int height)
+ {
+     ILOG_TRACE(ILX_SURFACE);
+-    DFBRectangle r = { x, y, width, height };
++    DFBRectangle r;
++    r.x = x;
++    r.y = y;
++    r.w = width;
++    r.h = height;
+     if (_parentSurface)
+     {
+         DFBResult ret = _dfbSurface->MakeSubSurface(_dfbSurface, _parentSurface, &r);
+@@ -253,25 +253,41 @@ Surface::flip(const Rectangle& rect)
+ 
+             if (r.y1)
+             {
+-                DFBRectangle rect = { 0, 0, w, r.y1 };
++                DFBRectangle rect;
++                rect.x = 0;
++                rect.y = 0;
++                rect.w = w;
++                rect.h = r.y1;
+                 _dfbSurface->Blit(_dfbSurface, _dfbSurface, &rect, rect.x, rect.y);
+             }
+ 
+             if (r.y2 < h - 1)
+             {
+-                DFBRectangle rect = { 0, r.y2 + 1, w, h - r.y2 - 1 };
++                DFBRectangle rect;
++                rect.x = 0;
++                rect.y = r.y2 + 1;
++                rect.w = w;
++                rect.h = h - r.y2 - 1;
+                 _dfbSurface->Blit(_dfbSurface, _dfbSurface, &rect, rect.x, rect.y);
+             }
+ 
+             if (r.x1)
+             {
+-                DFBRectangle rect = { 0, r.y1, r.x1, r.y2 - r.y1 + 1 };
++                DFBRectangle rect;
++                rect.x = 0;
++                rect.y = r.y1;
++                rect.w = r.x1;
++                rect.h = r.y2 - r.y1 + 1;
+                 _dfbSurface->Blit(_dfbSurface, _dfbSurface, &rect, rect.x, rect.y);
+             }
+ 
+             if (r.x2 < w - 1)
+             {
+-                DFBRectangle rect = { r.x2 + 1, r.y1, w - r.x2 - 1, r.y2 - r.y1 + 1 };
++                DFBRectangle rect;
++                rect.x = r.x2 + 1;
++                rect.y = r.y1;
++                rect.w = w - r.x2 - 1;
++                rect.h = r.y2 - r.y1 + 1;
+                 _dfbSurface->Blit(_dfbSurface, _dfbSurface, &rect, rect.x, rect.y);
+             }
+ 
+@@ -520,7 +524,11 @@ Surface::setStereoGeometry(const Rectangle& geometry, int zIndex)
+ void
+ Surface::setStereoGeometry(int x, int y, int width, int height, int zIndex)
+ {
+-    DFBRectangle r = { x, y, width, height };
++    DFBRectangle r;
++    r.x = x;
++    r.y = y;
++    r.w = width;
++    r.h = height;
+     if (_parentSurface)
+     {
+         r.x += zIndex;
