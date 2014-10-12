@@ -103,3 +103,20 @@ index 9aa5171..1de5b91 100644
      return r;
  }
  
+diff --git a/ilixi/ui/SurfaceView.cpp b/ilixi/ui/SurfaceView.cpp
+index 9127690..90b8d46 100644
+--- a/ilixi/ui/SurfaceView.cpp
++++ b/ilixi/ui/SurfaceView.cpp
+@@ -302,7 +302,11 @@ SurfaceView::renderSource(const PaintEvent& event)
+                 dfbSurface->Blit(dfbSurface, _sourceSurface, NULL, 0, 0);
+         } else
+         {
+-            DFBRectangle rect = { 0, 0, width(), height() };
++            DFBRectangle rect;
++            rect.x = 0;
++            rect.y = 0;
++            rect.w = width();
++            rect.h = height();
+             if (surface()->flags() & Surface::SharedSurface)
+             {
+                 rect.x += absX();
